@@ -14,9 +14,8 @@ class SchoolClassSeeder extends Seeder
     public function run(): void
     {
         $classes = [
-            'SSS1A', 'SSS1B', 'SSS1C', 'SSS1D', 'SSS1E', 'SSS1F',
-            'SSS2A', 'SSS2B', 'SSS2C', 'SSS2D', 'SSS2E', 'SSS2F',
-            'SSS3A', 'SSS3B', 'SSS3C', 'SSS3D', 'SSS3E', 'SSS3F',
+            'JSS1', 'JSS2', 'JSS3',
+            'SSS1', 'SSS2', 'SSS3'
         ];
 
         foreach ($classes as $class) {
