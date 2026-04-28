@@ -2,7 +2,7 @@
     <div class="sidebar-brand">
         <div class="brand-icon">🎓</div>
         <div class="brand-text">
-            JGSGS
+            DUNAMIS
             <span>Teacher Dashboard</span>
         </div>
     </div>

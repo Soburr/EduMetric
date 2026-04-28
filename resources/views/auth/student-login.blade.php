@@ -7,78 +7,70 @@
 
     <style>
         body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #1e3a8a, #2563eb);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #7B1E3A, #EC4899);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .card {
-            background: #fff;
-            width: 100%;
-            max-width: 420px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
+.card {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
-        .title {
-            text-align: center;
-            color: #1e3a8a;
-            margin-bottom: 20px;
-        }
+.title {
+    text-align: center;
+    color: #7B1E3A;
+    margin-bottom: 20px;
+}
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 12px;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
 
-        input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
+input:focus, select:focus {
+    outline: none;
+    border-color: #EC4899;
+}
 
-        button {
-            width: 100%;
-            margin-top: 20px;
-            padding: 12px;
-            background: #2563eb;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-        }
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #EC4899;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
 
-        button:hover {
-            background: #1e40af;
-        }
+button:hover {
+    background: #7B1E3A; 
+}
 
-        .error {
-            background: #fee2e2;
-            color: #b91c1c;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
+.footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+}
 
-        .footer {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 13px;
-        }
-
-        .footer a {
-            color: #2563eb;
-            text-decoration: none;
-        }
+.footer a {
+    color: #EC4899;
+    text-decoration: none;
+}
     </style>
 </head>
 <body>

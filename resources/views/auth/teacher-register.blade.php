@@ -6,95 +6,277 @@
     <title>Teacher Registration</title>
     <style>
         body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #1e3a8a, #2563eb);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 0;
-        }
-        .card {
-            background: #fff;
-            width: 100%;
-            max-width: 440px;
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .title { text-align:center; color:#1e3a8a; margin-bottom:4px; font-size:22px; }
-        .subtitle { text-align:center; color:#64748b; font-size:13px; margin-bottom:22px; }
-        .error-box { background:#fee2e2; padding:10px 14px; border-radius:6px; margin-bottom:14px; }
-        .error-box ul { margin:0; padding-left:16px; color:#b91c1c; font-size:13px; }
-        .field-label { display:block; font-size:12.5px; font-weight:600; color:#374151; margin-top:16px; margin-bottom:5px; }
-        .field-hint { font-size:11.5px; color:#94a3b8; margin-bottom:6px; display:block; }
-        input, select {
-            width: 100%; padding: 11px 12px; border-radius: 6px;
-            border: 1px solid #ddd; font-size: 14px; box-sizing: border-box;
-            color: #1f2937; font-family: inherit;
-        }
-        input:focus, select:focus {
-            outline: none; border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37,99,235,.1);
-        }
-        .tag-input-wrap {
-            border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px;
-            display: flex; flex-wrap: wrap; gap: 7px; cursor: text;
-            min-height: 46px; align-items: center;
-            transition: border-color .2s, box-shadow .2s;
-        }
-        .tag-input-wrap:focus-within { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
-        .tag {
-            background: #dbeafe; color: #1e40af; padding: 4px 10px;
-            border-radius: 20px; font-size: 13px; font-weight: 500;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .tag-remove { cursor:pointer; font-size:15px; line-height:1; color:#3b82f6; font-weight:700; }
-        .tag-remove:hover { color:#1e3a8a; }
-        .tag-text-input {
-            border:none !important; outline:none !important; box-shadow:none !important;
-            padding:4px !important; font-size:13.5px; flex:1; min-width:140px;
-            width:auto !important; font-family:inherit; background:transparent;
-        }
-        /* Toggle box */
-        .toggle-box {
-            margin-top: 18px; border: 1.5px solid #e2e8f0;
-            border-radius: 10px; padding: 14px 16px;
-            transition: border-color .2s, background .2s;
-        }
-        .toggle-box.active { border-color: #2563eb; background: #eff6ff; }
-        .toggle-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-        .toggle-info { flex:1; }
-        .toggle-title { font-size:13.5px; font-weight:600; color:#1e3a8a; }
-        .toggle-desc { font-size:12px; color:#94a3b8; margin-top:2px; }
-        .switch { position:relative; display:inline-block; width:44px; height:24px; flex-shrink:0; }
-        .switch input { opacity:0; width:0; height:0; }
-        .slider { position:absolute; cursor:pointer; inset:0; background:#cbd5e1; border-radius:24px; transition:.3s; }
-        .slider:before {
-            content:''; position:absolute; width:18px; height:18px;
-            left:3px; bottom:3px; background:white; border-radius:50%; transition:.3s;
-        }
-        input:checked + .slider { background: #2563eb; }
-        input:checked + .slider:before { transform: translateX(20px); }
-        .class-select-wrap { margin-top:12px; display:none; }
-        .class-select-wrap.show { display:block; }
-        button[type="submit"] {
-            width:100%; margin-top:24px; padding:12px; background:#2563eb;
-            color:#fff; border:none; border-radius:6px; font-size:15px;
-            font-weight:600; cursor:pointer; font-family:inherit;
-        }
-        button[type="submit"]:hover { background:#1e40af; }
-        .footer { text-align:center; margin-top:16px; font-size:13px; color:#64748b; }
-        .footer a { color:#2563eb; text-decoration:none; font-weight:500; }
-        @media (max-width:500px) { .card { margin:10px; padding:22px; } }
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #7B1E3A, #EC4899);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.card {
+    background: #fff;
+    width: 100%;
+    max-width: 440px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.title {
+    text-align:center;
+    color:#7B1E3A;
+    margin-bottom:4px;
+    font-size:22px;
+}
+
+.subtitle {
+    text-align:center;
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+/* ERROR */
+.error-box {
+    background:#FCE7F3;
+    padding:10px 14px;
+    border-radius:6px;
+    margin-bottom:14px;
+}
+
+.error-box ul {
+    margin:0;
+    padding-left:16px;
+    color:#9F1239;
+    font-size:13px;
+}
+
+/* FORM */
+.field-label {
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:#374151;
+    margin-top:16px;
+    margin-bottom:5px;
+}
+
+.field-hint {
+    font-size:11.5px;
+    color:#94a3b8;
+    margin-bottom:6px;
+    display:block;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #1f2937;
+    font-family: inherit;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #EC4899;
+    box-shadow: 0 0 0 3px rgba(236,72,153,.2);
+}
+
+/* TAG INPUT */
+.tag-input-wrap {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    cursor: text;
+    min-height: 46px;
+    align-items: center;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.tag-input-wrap:focus-within {
+    border-color: #EC4899;
+    box-shadow: 0 0 0 3px rgba(236,72,153,.2);
+}
+
+.tag {
+    background: #FCE7F3;
+    color: #7B1E3A;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tag-remove {
+    cursor:pointer;
+    font-size:15px;
+    color:#EC4899;
+    font-weight:700;
+}
+
+.tag-remove:hover {
+    color:#7B1E3A;
+}
+
+.tag-text-input {
+    border:none !important;
+    outline:none !important;
+    box-shadow:none !important;
+    padding:4px !important;
+    font-size:13.5px;
+    flex:1;
+    min-width:140px;
+    background:transparent;
+}
+
+/* TOGGLE BOX */
+.toggle-box {
+    margin-top: 18px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color .2s, background .2s;
+}
+
+.toggle-box.active {
+    border-color: #EC4899;
+    background: #FFF1F7;
+}
+
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.toggle-info {
+    flex: 1;
+}
+
+.toggle-title {
+    font-size:13.5px;
+    font-weight:600;
+    color:#7B1E3A;
+}
+
+.toggle-desc {
+    font-size:12px;
+    color:#94a3b8;
+    margin-top:2px;
+}
+
+/* SWITCH */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #cbd5e1;
+    border-radius: 24px;
+    transition: .3s;
+}
+
+.slider:before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+input:checked + .slider {
+    background: #EC4899;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* CLASS SELECT */
+.class-select-wrap {
+    margin-top:12px;
+    display:none;
+}
+
+.class-select-wrap.show {
+    display:block;
+}
+
+/* BUTTON */
+button[type="submit"] {
+    width:100%;
+    margin-top:24px;
+    padding:12px;
+    background:#EC4899;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button[type="submit"]:hover {
+    background:#BE185D;
+}
+
+/* FOOTER */
+.footer {
+    text-align:center;
+    margin-top:16px;
+    font-size:13px;
+    color:#64748b;
+}
+
+.footer a {
+    color:#EC4899;
+    text-decoration:none;
+    font-weight:500;
+}
+
+/* MOBILE */
+@media (max-width:500px) {
+    .card {
+        margin:10px;
+        padding:22px;
+    }
+}
     </style>
 </head>
 <body>
 
 <div class="card">
     <h2 class="title">🎓 Teacher Registration</h2>
-    <p class="subtitle">Create your JGSGS staff account</p>
+    <p class="subtitle">Create your staff account</p>
 
     @if ($errors->any())
         <div class="error-box">
@@ -114,7 +296,7 @@
                value="{{ old('name') }}" required>
 
         <label class="field-label">Email Address</label>
-        <input type="email" name="email" placeholder="e.g. adebayo@jgsgs.edu.ng"
+        <input type="email" name="email" placeholder="e.g. adebayo@dunamis.edu.ng"
                value="{{ old('email') }}" required>
 
         <label class="field-label">Subject(s) You Teach</label>

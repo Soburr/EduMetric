@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #1e3a8a, #2563eb);
+            background: linear-gradient(to right, #7B1E3A, #EC4899);
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -27,7 +27,7 @@
 
         .title {
             text-align: center;
-            color: #1e3a8a;
+            color: #7B1E3A;
             margin-bottom: 20px;
         }
 
@@ -42,14 +42,15 @@
 
         input:focus, select:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: #EC4899;
+            box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
         }
 
         button {
             width: 100%;
             margin-top: 20px;
             padding: 12px;
-            background: #2563eb;
+            background: #EC4899;
             color: #fff;
             border: none;
             border-radius: 6px;
@@ -58,7 +59,7 @@
         }
 
         button:hover {
-            background: #1e40af;
+            background: #BE185D;
         }
 
         .footer {
@@ -68,7 +69,7 @@
         }
 
         .footer a {
-            color: #2563eb;
+            color: #EC4899;
             text-decoration: none;
         }
 
@@ -84,15 +85,17 @@
 
 <div class="card">
     <h2 class="title">Student Registration</h2>
+
     @if ($errors->any())
-    <div style="background:#fee2e2; padding:10px; border-radius:6px; margin-bottom:10px;">
-        <ul style="margin:0; padding-left:15px; color:#b91c1c;">
+    <div style="background:#ffe4ec; padding:10px; border-radius:6px; margin-bottom:10px;">
+        <ul style="margin:0; padding-left:15px; color:#7B1E3A;">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
+
     <form method="POST" action="/student/register">
         @csrf
 
@@ -100,12 +103,12 @@
 
         <input type="text" name="student_id" placeholder="Student ID (e.g REG123X)" value="{{ old('student_id') }}" required>
 
-<select name="class_id" required>
-    <option value="">Select Class</option>
-    @foreach($classes as $class)
-        <option value="{{ $class->id }}">{{ $class->name }}</option>
-    @endforeach
-</select>
+        <select name="class_id" required>
+            <option value="">Select Class</option>
+            @foreach($classes as $class)
+                <option value="{{ $class->id }}">{{ $class->name }}</option>
+            @endforeach
+        </select>
 
         <input type="password" name="password" placeholder="Password" required>
 

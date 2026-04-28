@@ -15,7 +15,9 @@ class SchoolClassSeeder extends Seeder
     {
         $classes = [
             'JSS1', 'JSS2', 'JSS3',
-            'SSS1', 'SSS2', 'SSS3'
+            'SSS1', 
+            'SSS2 (Science)', 'SSS2 (Art)', 'SSS2 (Commercial)',
+            'SSS3 (Science)', 'SSS3 (Art)', 'SSS3 (Commercial)',
         ];
 
         foreach ($classes as $class) {

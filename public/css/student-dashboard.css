@@ -1,14 +1,19 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    --blue-900: #0d1f4e;
-    --blue-800: #1a3a7c;
-    --blue-700: #1e4bb8;
-    --blue-600: #2563eb;
-    --blue-500: #3b82f6;
-    --blue-400: #60a5fa;
-    --blue-100: #dbeafe;
-    --blue-50:  #eff6ff;
+    /* WINE (primary) */
+    --blue-900: #4C0F24;
+    --blue-800: #6A1833;
+    --blue-700: #7B1E3A;
+    --blue-600: #9F2A50;
+    --blue-500: #BE185D;
+
+    /* PINK (accent) */
+    --blue-400: #EC4899;
+    --blue-100: #FCE7F3;
+    --blue-50:  #FFF1F7;
+
+    /* NEUTRALS (keep same) */
     --white:    #ffffff;
     --gray-50:  #f8fafc;
     --gray-100: #f1f5f9;
@@ -16,9 +21,11 @@
     --gray-400: #94a3b8;
     --gray-500: #64748b;
     --gray-700: #334155;
-    --green:    #10b981;
-    --amber:    #f59e0b;
-    --red:      #ef4444;
+
+    --green:    #BE185D;   
+    --amber:    #F472B6;   
+    --red:      #9F1239;   
+    
     --sidebar-w: 240px;
     --topbar-h: 68px;
 }
@@ -112,8 +119,7 @@ body {
 }
 
 .nav-item.active {
-    background: var(--blue-700);
-    color: var(--white);
+    background: var(--blue-600);
 }
 
 .nav-item .nav-icon { font-size: 17px; width: 20px; text-align: center; }

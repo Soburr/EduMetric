@@ -1,15 +1,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    --blue-900: #0d1f4e;
-    --blue-800: #1a3a7c;
-    --blue-700: #1e4bb8;
-    --blue-600: #2563eb;
-    --blue-500: #3b82f6;
-    --blue-400: #60a5fa;
-    --blue-200: #bfdbfe;
-    --blue-100: #dbeafe;
-    --blue-50:  #eff6ff;
+    /* WINE (primary) */
+    --blue-900: #4C0F24;
+    --blue-800: #6A1833;
+    --blue-700: #7B1E3A;
+    --blue-600: #9F2A50;
+    --blue-500: #BE185D;
+
+    /* PINK ACCENT */
+    --blue-400: #EC4899;
+    --blue-200: #F9A8D4;
+    --blue-100: #FCE7F3;
+    --blue-50:  #FFF1F7;
+
+    /* NEUTRALS */
     --white:    #ffffff;
     --gray-50:  #f8fafc;
     --gray-100: #f1f5f9;
@@ -18,9 +23,12 @@
     --gray-400: #94a3b8;
     --gray-500: #64748b;
     --gray-700: #334155;
-    --green:    #10b981;
-    --amber:    #f59e0b;
-    --red:      #ef4444;
+
+    /* STATUS COLORS (aligned with wine theme) */
+    --green: #BE185D;
+    --amber: #F472B6;
+    --red:   #9F1239;
+
     --sidebar-w: 240px;
     --topbar-h: 68px;
 }
@@ -107,7 +115,9 @@ body {
 }
 
 .nav-item:hover { background: rgba(255,255,255,.07); color: var(--white); }
-.nav-item.active { background: var(--blue-700); color: var(--white); }
+.nav-item.active {
+    background: var(--blue-600);
+}
 .nav-item .nav-icon { font-size: 17px; width: 20px; text-align: center; }
 
 .sidebar-footer {
@@ -200,7 +210,12 @@ body {
 
 /* ── HERO ── */
 .hero {
-    background: linear-gradient(115deg, var(--blue-900) 0%, var(--blue-700) 60%, var(--blue-600) 100%);
+background: linear-gradient(
+    115deg,
+    var(--blue-900) 0%,
+    var(--blue-700) 50%,
+    var(--blue-500) 100%
+);
     border-radius: 18px;
     padding: 32px 36px;
     color: var(--white);
@@ -287,7 +302,7 @@ body {
 
 .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; }
 .stat-icon.blue  { background: var(--blue-50); }
-.stat-icon.green { background: rgba(16,185,129,.1); }
+.stat-icon.green { background: var(--blue-100); }
 .stat-icon.amber { background: rgba(245,158,11,.1); }
 .stat-icon.red   { background: rgba(239,68,68,.1); }
 
@@ -363,7 +378,10 @@ body {
 .btn-primary:hover { background: var(--blue-700); }
 
 .btn-danger {
-    padding: 7px 14px; background: #fee2e2; color: var(--red);
+.btn-danger {
+    background: var(--blue-100);
+    color: var(--blue-700);
+}
     border: none; border-radius: 8px; font-size: 12.5px; font-weight: 600;
     cursor: pointer; font-family: inherit; transition: background .2s;
 }

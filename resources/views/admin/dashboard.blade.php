@@ -8,7 +8,7 @@
     <div class="hero" style="margin-bottom:28px;">
         <div class="hero-text">
             <div class="hero-date">{{ now()->format('l, F j, Y') }}</div>
-            <div class="hero-title">Welcome back, {{ explode(' ', auth()->user()->name)[1] }}! 🛡️</div>
+            <div class="hero-title">Welcome back, {{ explode(' ', auth()->user()->name)[0] }}! 🛡️</div>
             <div class="hero-sub">System Administrator — Full access</div>
         </div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
