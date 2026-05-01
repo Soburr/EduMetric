@@ -7,7 +7,9 @@ use App\Http\Controllers\Teacher\TeacherExamController;
 use App\Http\Controllers\Teacher\TeacherStudentController;
 use App\Http\Controllers\Teacher\TeacherPerformanceController;
 use App\Http\Controllers\Teacher\TeacherProfileController;
+use App\Http\Controllers\Teacher\TeacherScoreController;
 use App\Http\Controllers\Student\StudentProfileController;
+use App\Http\Controllers\Student\StudentReportCardController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminClassController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminNoticeController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\BroadsheetController;
 
 
 Route::get('/', [App\Http\Controllers\LandingController::class, 'index']);
@@ -48,6 +51,7 @@ Route::middleware(['auth', 'student'])->prefix('student')->name('student.')->gro
     Route::get('/profile',          [StudentProfileController::class, 'index'])->name('profile');
     Route::put('/profile',          [StudentProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [StudentProfileController::class, 'changePassword'])->name('profile.password');
+    Route::get('/report-card', [StudentReportCardController::class, 'index'])->name('report-card');
     Route::post('/logout',      [App\Http\Controllers\Student\StudentAuthController::class,     'logout'])->name('logout');
  
 });
@@ -82,6 +86,12 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::put('/profile/teaching', [TeacherProfileController::class, 'updateTeaching'])->name('profile.teaching');
     Route::put('/profile/password', [TeacherProfileController::class, 'changePassword'])->name('profile.password');
     
+    Route::get('/scores',  [TeacherScoreController::class, 'index'])->name('scores.index');
+    Route::post('/scores', [TeacherScoreController::class, 'store'])->name('scores.store');
+ 
+    Route::get('/broadsheet',        [BroadsheetController::class, 'index'])->name('broadsheet.index');
+    Route::get('/broadsheet/annual', [BroadsheetController::class, 'annual'])->name('broadsheet.annual');
+
     Route::post('/logout', [App\Http\Controllers\Teacher\TeacherAuthController::class, 'logout'])->name('logout');
 });
 
@@ -121,6 +131,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/profile',           [AdminProfileController::class, 'index'])->name('profile');
     Route::put('/profile',           [AdminProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password',  [AdminProfileController::class, 'changePassword'])->name('profile.password');
+
+    Route::get('/broadsheet',        [BroadsheetController::class, 'index'])->name('broadsheet.index');
+    Route::get('/broadsheet/annual', [BroadsheetController::class, 'annual'])->name('broadsheet.annual');
 
 });
 

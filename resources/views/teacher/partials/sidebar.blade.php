@@ -1,4 +1,4 @@
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar" style="overflow-y:auto; overflow-x:hidden;">
     <div class="sidebar-brand">
         <div class="brand-icon">🎓</div>
         <div class="brand-text">
@@ -39,6 +39,16 @@
         <a href="{{ route('teacher.students.index') }}"
            class="nav-item {{ request()->routeIs('teacher.students.index') ? 'active' : '' }}">
             <span class="nav-icon">🧑‍🎓</span> My Students
+        </a>
+
+        <a href="{{ route('teacher.scores.index') }}"
+           class="nav-item {{ request()->routeIs('teacher.scores.*') ? 'active' : '' }}">
+            <span class="nav-icon">✏️</span> Input Scores
+        </a>
+
+        <a href="{{ route('teacher.broadsheet.index') }}"
+           class="nav-item {{ request()->routeIs('teacher.broadsheet.*') ? 'active' : '' }}">
+            <span class="nav-icon">📊</span> Broadsheet
         </a>
 
         <a href="{{ route('teacher.performance.index') }}"
