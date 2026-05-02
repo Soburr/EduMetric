@@ -146,13 +146,19 @@
                             onmouseout="this.style.background='{{ $loop->odd ? '#fff' : 'var(--gray-50)' }}'">
 
                             {{-- Student name --}}
-                            <td style="padding:10px 14px; font-weight:600; color:var(--blue-900);
-                                               white-space:nowrap;">
-                                {{ $row['student']->name }}
-                                <div style="font-size:11px; color:var(--gray-400); font-weight:400;">
-                                    {{ $row['student']->student_id }}
-                                </div>
-                            </td>
+<td style="padding:10px 14px; white-space:nowrap;">
+    <a href="{{ auth()->user()->role === 'admin'
+    ? route('admin.student_report_card', $row['student']->id) . '?term=' . request('term') . '&session=' . request('session')
+    : route('teacher.student_report_card', $row['student']->id) . '?term=' . request('term') . '&session=' . request('session') }}"
+       style="font-weight:600; color:var(--blue-900); text-decoration:none;"
+       onmouseover="this.style.color='var(--blue-600)'"
+       onmouseout="this.style.color='var(--blue-900)'">
+        {{ $row['student']->name }}
+        <div style="font-size:11px; color:var(--gray-400); font-weight:400;">
+            {{ $row['student']->student_id }}
+        </div>
+    </a>
+</td>
 
                             {{-- Subject scores --}}
                             @foreach($subjects as $subject)

@@ -14,13 +14,18 @@
         </div>
     </div>
     @if($selectedClass && $annualSheet->count() > 0)
-        <button onclick="window.print()" class="btn-secondary">🖨️ Print</button>
+        <button onclick="window.print()"
+        style="background:var(--blue-900); color:#fff; border:none; padding:10px 20px;
+               border-radius:8px; font-size:13.5px; font-family:'DM Sans',sans-serif;
+               font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+    🖨️ Print
+</button>
     @endif
 </div>
 
 {{-- Filter --}}
 <div class="card" style="margin-bottom:24px;">
-    <form method="GET" action="{{ route('broadsheet.annual') }}"
+<form method="GET" action="{{ auth()->user()->role === 'admin' ? route('admin.broadsheet.annual') : route('teacher.broadsheet.annual') }}"
           style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; align-items:flex-end;"
           class="filter-grid">
         <div>
@@ -48,7 +53,12 @@
             </select>
         </div>
         <div>
-            <button type="submit" class="btn-primary">🏆 Load Annual Sheet</button>
+    <button type="submit"
+            style="background:var(--blue-900); color:#fff; border:none; padding:10px 20px;
+                   border-radius:8px; font-size:13.5px; font-family:'DM Sans',sans-serif;
+                   font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px;">
+        🏆 Load Annual Sheet
+    </button>
         </div>
     </form>
 </div>

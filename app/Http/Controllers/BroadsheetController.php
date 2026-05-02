@@ -220,4 +220,81 @@ class BroadsheetController extends Controller
         }
         return $sessions;
     }
+
+    public function studentReport(Request $request, int $id)
+    {
+    $user    = Auth::user();
+    $student = User::findOrFail($id);
+
+    $currentYear = date('Y');
+    $sessions    = [];
+    for ($i = 0; $i < 4; $i++) {
+        $start      = $currentYear - $i;
+        $sessions[] = $start . '/' . ($start + 1);
+    }
+
+    $scores        = collect();
+    $selectedTerm    = $request->input('term');
+    $selectedSession = $request->input('session');
+    $position        = null;
+    $totalStudents   = null;
+    $grandTotal      = 0;
+    $average         = null;
+
+    if ($request->filled(['term', 'session'])) {
+        $scores = SubjectScore::where('student_id', $student->id)
+            ->where('term', $request->term)
+            ->where('session', $request->session)
+            ->orderBy('subject')
+            ->get();
+
+        if ($scores->isNotEmpty()) {
+            $grandTotal = $scores->sum('total');
+            $average    = round($grandTotal / $scores->count(), 2);
+
+            $classStudents = User::where('class_id', $student->class_id)
+                ->where('role', 'student')
+                ->get();
+
+            $totalStudents = $classStudents->count();
+
+            $classTotals = $classStudents->map(function ($s) use ($request) {
+                return [
+                    'student_id' => $s->id,
+                    'total'      => SubjectScore::where('student_id', $s->id)
+                        ->where('term', $request->term)
+                        ->where('session', $request->session)
+                        ->sum('total'),
+                ];
+            })->sortByDesc('total')->values();
+
+            $pos      = 1;
+            $prevTotal = null;
+            $prevPos   = 1;
+
+            foreach ($classTotals as $entry) {
+                if ($entry['total'] === $prevTotal) {
+                    if ($entry['student_id'] === $student->id) { $position = $prevPos; break; }
+                } else {
+                    if ($entry['student_id'] === $student->id) { $position = $pos; break; }
+                    $prevPos   = $pos;
+                    $prevTotal = $entry['total'];
+                }
+                $pos++;
+            }
+        }
+    }
+
+    return view('broadsheet-student-report', compact(
+        'student',
+        'scores',
+        'sessions',
+        'selectedTerm',
+        'selectedSession',
+        'grandTotal',
+        'average',
+        'position',
+        'totalStudents'
+    ));
+}
 }

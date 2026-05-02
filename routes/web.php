@@ -92,6 +92,8 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::get('/broadsheet',        [BroadsheetController::class, 'index'])->name('broadsheet.index');
     Route::get('/broadsheet/annual', [BroadsheetController::class, 'annual'])->name('broadsheet.annual');
 
+    Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('student_report_card');
+
     Route::post('/logout', [App\Http\Controllers\Teacher\TeacherAuthController::class, 'logout'])->name('logout');
 });
 
@@ -135,6 +137,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/broadsheet',        [BroadsheetController::class, 'index'])->name('broadsheet.index');
     Route::get('/broadsheet/annual', [BroadsheetController::class, 'annual'])->name('broadsheet.annual');
 
+    Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('admin.student_report_card');
 });
 
 require __DIR__.'/auth.php';

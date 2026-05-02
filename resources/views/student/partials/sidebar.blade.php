@@ -34,6 +34,11 @@
            class="nav-item {{ request()->routeIs('student.performance') ? 'active' : '' }}">
             <span class="nav-icon">📈</span> Performance
         </a>
+
+        <a href="{{ route('student.report-card') }}"
+           class="nav-item {{ request()->routeIs('student.report-card') ? 'active' : '' }}">
+            <span class="nav-icon">📋</span> Report Card
+        </a>
     </div>
 
     <div class="nav-section">
