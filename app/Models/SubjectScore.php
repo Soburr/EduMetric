@@ -47,16 +47,15 @@ class SubjectScore extends Model
     /**
      * Auto-calculate total and grade whenever ca or exam is updated.
      */
-    public function recalculate(): void
-    {
-        $total = ($this->cbt_score ?? 0)
-            + ($this->ca_score ?? 0)
-            + ($this->exam_score ?? 0);
+public function recalculate(): void
+{
+    $total = ($this->cbt_score  ?? 0)
+           + ($this->exam_score ?? 0);
 
-        $this->total = round($total, 2);
-        $this->grade = self::computeGrade($total);
-        $this->save();
-    }
+    $this->total = round($total, 2);
+    $this->grade = self::computeGrade($total);
+    $this->save();
+}
 
     /**
      * Scale a raw CBT percentage to /20.
@@ -73,14 +72,17 @@ class SubjectScore extends Model
      */
     public static function computeGrade(float $total): string
     {
-        return match (true) {
-            $total >= 70 => 'A',
-            $total >= 60 => 'B',
-            $total >= 50 => 'C',
-            $total >= 45 => 'D',
-            $total >= 40 => 'E',
-            default => 'F',
-        };
+    return match(true) {
+        $total >= 75 => 'A1',
+        $total >= 70 => 'B2',
+        $total >= 65 => 'B3',
+        $total >= 60 => 'C4',
+        $total >= 55 => 'C5',
+        $total >= 50 => 'C6',
+        $total >= 45 => 'D7',
+        $total >= 40 => 'E8',
+        default      => 'F9',
+    };
     }
 
     /**

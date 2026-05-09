@@ -16,12 +16,9 @@ class BroadsheetController extends Controller
         $user    = Auth::user();
         $profile = $user->role === 'teacher' ? $user->teacherProfile : null;
 
-        // Admin sees all classes
-        // Class teacher sees only their assigned class
         if ($user->role === 'admin') {
             $classes = SchoolClass::orderBy('name')->get();
         } else {
-            // Must be a class teacher to access broadsheet
             if (!$profile?->is_class_teacher || !$profile->assigned_class_id) {
                 abort(403, 'Only class teachers and admins can view the broadsheet.');
             }
@@ -35,8 +32,6 @@ class BroadsheetController extends Controller
         $selectedSession = $request->input('session');
 
         if ($request->filled(['class_id', 'term', 'session'])) {
-
-            // Class teacher can only view their own class
             if ($user->role === 'teacher') {
                 if ((int) $request->class_id !== (int) $profile->assigned_class_id) {
                     abort(403, 'You can only view the broadsheet for your assigned class.');
@@ -50,8 +45,6 @@ class BroadsheetController extends Controller
                 ->orderBy('name')
                 ->get();
 
-            // All subjects with scores entered for this class/term/session
-            // — collected from ALL subject teachers, not just the logged-in one
             $subjects = SubjectScore::where('class_id', $request->class_id)
                 ->where('term', $request->term)
                 ->where('session', $request->session)
@@ -60,7 +53,6 @@ class BroadsheetController extends Controller
                 ->sort()
                 ->values();
 
-            // Build broadsheet rows
             $broadsheet = $students->map(function ($student) use ($request, $subjects) {
                 $row = [
                     'student'       => $student,
@@ -92,7 +84,6 @@ class BroadsheetController extends Controller
                 return $row;
             });
 
-            // Calculate positions
             $broadsheet = $this->assignPositions($broadsheet, 'grand_total');
         }
 
@@ -221,8 +212,8 @@ class BroadsheetController extends Controller
         return $sessions;
     }
 
-    public function studentReport(Request $request, int $id)
-    {
+   public function studentReport(Request $request, int $id)
+{
     $user    = Auth::user();
     $student = User::findOrFail($id);
 
@@ -233,13 +224,15 @@ class BroadsheetController extends Controller
         $sessions[] = $start . '/' . ($start + 1);
     }
 
-    $scores        = collect();
+    $scores          = collect();
     $selectedTerm    = $request->input('term');
     $selectedSession = $request->input('session');
     $position        = null;
     $totalStudents   = null;
     $grandTotal      = 0;
     $average         = null;
+    $meta            = null;
+    $subjectStats    = [];
 
     if ($request->filled(['term', 'session'])) {
         $scores = SubjectScore::where('student_id', $student->id)
@@ -248,16 +241,38 @@ class BroadsheetController extends Controller
             ->orderBy('subject')
             ->get();
 
+        // Load meta
+        $meta = \App\Models\ReportCardMeta::where('student_id', $student->id)
+            ->where('term', $request->term)
+            ->where('session', $request->session)
+            ->first();
+
         if ($scores->isNotEmpty()) {
             $grandTotal = $scores->sum('total');
             $average    = round($grandTotal / $scores->count(), 2);
 
+            // Class stats per subject
             $classStudents = User::where('class_id', $student->class_id)
                 ->where('role', 'student')
                 ->get();
 
             $totalStudents = $classStudents->count();
 
+            foreach ($scores as $score) {
+                $allScores = SubjectScore::where('class_id', $student->class_id)
+                    ->where('subject', $score->subject)
+                    ->where('term', $request->term)
+                    ->where('session', $request->session)
+                    ->pluck('total');
+
+                $subjectStats[$score->subject] = [
+                    'lowest'  => round($allScores->min(), 0),
+                    'highest' => round($allScores->max(), 0),
+                    'average' => round($allScores->avg(), 1),
+                ];
+            }
+
+            // Position
             $classTotals = $classStudents->map(function ($s) use ($request) {
                 return [
                     'student_id' => $s->id,
@@ -268,7 +283,7 @@ class BroadsheetController extends Controller
                 ];
             })->sortByDesc('total')->values();
 
-            $pos      = 1;
+            $pos       = 1;
             $prevTotal = null;
             $prevPos   = 1;
 
@@ -286,15 +301,8 @@ class BroadsheetController extends Controller
     }
 
     return view('broadsheet-student-report', compact(
-        'student',
-        'scores',
-        'sessions',
-        'selectedTerm',
-        'selectedSession',
-        'grandTotal',
-        'average',
-        'position',
-        'totalStudents'
+        'student', 'scores', 'sessions', 'selectedTerm', 'selectedSession',
+        'grandTotal', 'average', 'position', 'totalStudents', 'meta', 'subjectStats'
     ));
 }
 }

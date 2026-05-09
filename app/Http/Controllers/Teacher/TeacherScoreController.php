@@ -124,7 +124,7 @@ class TeacherScoreController extends Controller
             'subject' => ['required', 'string'],
             'scores' => ['required', 'array'],
             'scores.*.ca_score' => ['nullable', 'numeric', 'min:0', 'max:30'],
-            'scores.*.exam_score' => ['nullable', 'numeric', 'min:0', 'max:50'],
+            'scores.*.exam_score' => ['nullable', 'numeric', 'min:0', 'max:70'],
             'scores.*.remark' => ['nullable', 'string', 'max:255'],
         ]);
 

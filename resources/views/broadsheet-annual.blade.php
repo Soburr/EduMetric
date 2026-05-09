@@ -1,4 +1,4 @@
-@extends(auth()->user()->role === 'admin' ? 'layouts.admin.app' : 'layouts.teacher.app')
+@extends(auth()->user()->role === 'admin' ? 'admin.layouts.app' : 'layouts.teacher.app')
 
 @section('title', 'Annual Broadsheet')
 

@@ -24,7 +24,7 @@
 
     {{-- Filter --}}
     <div class="card" style="margin-bottom:24px;">
-        <form method="GET" action="{{ route('teacher.broadsheet.index') }}"
+        <form method="GET" action="{{ auth()->user()->role === 'admin' ? route('admin.broadsheet.index') : route('teacher.broadsheet.index') }}"
             style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; align-items:flex-end;" class="filter-grid">
 
             <div>
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div style="font-size:12px; opacity:.6;">
-                CBT/20 · CA/30 · Exam/50 · Total/100
+                CA/30 · Exam/70 · Total/100
             </div>
         </div>
 
@@ -106,7 +106,7 @@
                             Student
                         </th>
                         @foreach($subjects as $subject)
-                            <th colspan="4" style="padding:10px 8px; text-align:center; font-weight:700;
+                            <th colspan="3" style="padding:10px 8px; text-align:center; font-weight:700;
                                                border-left:2px solid rgba(255,255,255,.15); font-size:12px;
                                                white-space:nowrap; font-family:'Plus Jakarta Sans',sans-serif;">
                                 {{ $subject }}
@@ -123,19 +123,18 @@
                                        font-family:'Plus Jakarta Sans',sans-serif;">Pos</th>
                     </tr>
 
-                    {{-- Sub-header: CBT / CA / Exam / Total per subject --}}
-                    <tr style="background:var(--blue-800); color:rgba(255,255,255,.8); font-size:11px;">
-                        <th style="padding:6px 14px;"></th>
-                        @foreach($subjects as $subject)
-                            <th style="padding:6px 6px; text-align:center; border-left:2px solid rgba(255,255,255,.1);">CBT</th>
-                            <th style="padding:6px 6px; text-align:center;">CA</th>
-                            <th style="padding:6px 6px; text-align:center;">Exam</th>
-                            <th style="padding:6px 6px; text-align:center;">Tot</th>
-                        @endforeach
-                        <th style="padding:6px 12px; border-left:2px solid rgba(255,255,255,.1);"></th>
-                        <th style="padding:6px 12px;"></th>
-                        <th style="padding:6px 12px;"></th>
-                    </tr>
+                    {{-- Sub-header: CA / Exam / Total per subject --}}
+<tr style="background:var(--blue-800); color:rgba(255,255,255,.8); font-size:11px;">
+    <th style="padding:6px 14px;"></th>
+    @foreach($subjects as $subject)
+        <th style="padding:6px 6px; text-align:center; border-left:2px solid rgba(255,255,255,.1);">CA</th>
+        <th style="padding:6px 6px; text-align:center;">Exam</th>
+        <th style="padding:6px 6px; text-align:center;">Tot</th>
+    @endforeach
+    <th style="padding:6px 12px; border-left:2px solid rgba(255,255,255,.1);"></th>
+    <th style="padding:6px 12px;"></th>
+    <th style="padding:6px 12px;"></th>
+</tr>
                 </thead>
 
                 <tbody>
@@ -164,15 +163,12 @@
                             @foreach($subjects as $subject)
                                         @php $s = $row['scores'][$subject] ?? null; @endphp
                                         <td style="padding:8px 6px; text-align:center; color:var(--gray-500);
-                                   border-left:2px solid var(--gray-100);">
-                                            {{ $s?->cbt_score ? number_format($s->cbt_score, 0) : '—' }}
-                                        </td>
-                                        <td style="padding:8px 6px; text-align:center; color:var(--gray-500);">
-                                            {{ $s?->ca_score ? number_format($s->ca_score, 0) : '—' }}
-                                        </td>
-                                        <td style="padding:8px 6px; text-align:center; color:var(--gray-500);">
-                                            {{ $s?->exam_score ? number_format($s->exam_score, 0) : '—' }}
-                                        </td>
+           border-left:2px solid var(--gray-100);">
+    {{ $s?->cbt_score ? number_format($s->cbt_score, 0) : '—' }}
+</td>
+<td style="padding:8px 6px; text-align:center; color:var(--gray-500);">
+    {{ $s?->exam_score ? number_format($s->exam_score, 0) : '—' }}
+</td>
                                         <td
                                             style="padding:8px 6px; text-align:center; font-weight:700;
                                                         color:{{ ($s?->total ?? 0) >= 70 ? 'var(--green)' : (($s?->total ?? 0) >= 40 ? 'var(--blue-600)' : 'var(--red)') }}">
@@ -218,14 +214,17 @@
         </div>
 
         {{-- Legend --}}
-        <div style="margin-top:16px; display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--gray-400);">
-            <span>🟢 A = 70–100</span>
-            <span>🔵 B = 60–69</span>
-            <span>🔵 C = 50–59</span>
-            <span>🟡 D = 45–49</span>
-            <span>🟡 E = 40–44</span>
-            <span>🔴 F = 0–39</span>
-        </div>
+<div style="margin-top:16px; display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--gray-400);">
+    <span>🟢 A1 = 75–100</span>
+    <span>🔵 B2 = 70–74</span>
+    <span>🔵 B3 = 65–69</span>
+    <span>🟡 C4 = 60–64</span>
+    <span>🟡 C5 = 55–59</span>
+    <span>🟡 C6 = 50–54</span>
+    <span>🟠 D7 = 45–49</span>
+    <span>🟠 E8 = 40–44</span>
+    <span>🔴 F9 = 0–39</span>
+</div>
 
     @elseif(request('class_id'))
         <div class="card">

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminNoticeController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\BroadsheetController;
+use App\Http\Controllers\ReportCardMetaController;
 
 
 Route::get('/', [App\Http\Controllers\LandingController::class, 'index']);
@@ -93,6 +94,7 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::get('/broadsheet/annual', [BroadsheetController::class, 'annual'])->name('broadsheet.annual');
 
     Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('student_report_card');
+    Route::post('/student/{id}/report-card/meta', [ReportCardMetaController::class, 'save'])->name('student_report_card.meta');
 
     Route::post('/logout', [App\Http\Controllers\Teacher\TeacherAuthController::class, 'logout'])->name('logout');
 });
@@ -137,7 +139,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/broadsheet',        [BroadsheetController::class, 'index'])->name('broadsheet.index');
     Route::get('/broadsheet/annual', [BroadsheetController::class, 'annual'])->name('broadsheet.annual');
 
-    Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('admin.student_report_card');
+    Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('student_report_card');
+    Route::post('/student/{id}/report-card/meta', [ReportCardMetaController::class, 'save'])->name('student_report_card.meta');
 });
 
 require __DIR__.'/auth.php';
