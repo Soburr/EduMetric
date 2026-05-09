@@ -48,6 +48,10 @@
            class="nav-item {{ request()->routeIs('admin.notices.*') ? 'active' : '' }}">
             <span class="nav-icon">📢</span> Notices
         </a>
+        <a href="{{ route('admin.broadsheet.index') }}"
+           class="nav-item {{ request()->routeIs('admin.broadsheet.*') ? 'active' : '' }}">
+            <span class="nav-icon">📊</span> Manage Broadsheet
+        </a>
     </div>
 
     <div class="nav-section">
