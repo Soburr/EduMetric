@@ -76,6 +76,8 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::delete('/notices/{id}',  [TeacherNoticeController::class, 'destroy'])->name('notices.destroy');
 
     Route::get('/students',              [TeacherStudentController::class, 'index'])->name('students.index');
+    Route::get('/students/create',  [TeacherStudentController::class, 'create'])->name('students.create');
+    Route::post('/students',        [TeacherStudentController::class, 'store'])->name('students.store');
     Route::get('/students/{id}',         [TeacherStudentController::class, 'show'])->name('students.show');
     Route::put('/students/{id}/password',[TeacherStudentController::class, 'resetPassword'])->name('students.password');
 
@@ -124,7 +126,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/teachers/{id}/password',        [AdminTeacherController::class, 'resetPassword'])->name('teachers.password');
     Route::delete('/teachers/{id}',              [AdminTeacherController::class, 'destroy'])->name('teachers.destroy');
 
-    Route::get('/students',                      [AdminStudentController::class, 'index'])->name('students.index');
+    Route::get('/students',         [AdminStudentController::class, 'index'])->name('students.index');
+    Route::get('/students/create',  [AdminStudentController::class, 'create'])->name('students.create');
+    Route::post('/students',        [AdminStudentController::class, 'store'])->name('students.store');
     Route::put('/students/{id}/password',        [AdminStudentController::class, 'resetPassword'])->name('students.password');
     Route::delete('/students/{id}',              [AdminStudentController::class, 'destroy'])->name('students.destroy');
 

@@ -17,12 +17,10 @@ class AdminStudentController extends Controller
 
         $query = User::where('role', 'student')->with('studentClass');
 
-        // Filter by class
         if ($request->filled('class_id')) {
             $query->where('class_id', $request->class_id);
         }
 
-        // Search by name or student ID
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
@@ -40,6 +38,34 @@ class AdminStudentController extends Controller
         });
 
         return view('admin.students', compact('students', 'classes'));
+    }
+
+    public function create()
+    {
+        $classes = SchoolClass::orderBy('name')->get();
+
+        return view('admin.students-create', compact('classes'));
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name'       => ['required', 'string', 'max:100'],
+            'student_id' => ['required', 'string', 'max:50', 'unique:users,student_id'],
+            'class_id'   => ['required', 'exists:school_classes,id'],
+            'password'   => ['required', 'string', 'min:4', 'confirmed'],
+        ]);
+
+        User::create([
+            'name'       => $data['name'],
+            'student_id' => $data['student_id'],
+            'password'   => Hash::make($data['password']),
+            'role'       => 'student',
+            'class_id'   => $data['class_id'],
+        ]);
+
+        return redirect()->route('admin.students.index')
+            ->with('success', "Student account for '{$data['name']}' created successfully.");
     }
 
     public function resetPassword(Request $request, int $id)

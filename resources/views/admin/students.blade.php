@@ -4,13 +4,29 @@
 
 @section('content')
 
-<div style="margin-bottom:24px;">
-    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800;
-                font-size:20px; color:var(--blue-900);">👥 Students</div>
-    <div style="font-size:13px; color:var(--gray-400); margin-top:4px;">
-        View and manage all student accounts
+<div style="margin-bottom:24px; display:flex; align-items:flex-start;
+            justify-content:space-between; gap:12px; flex-wrap:wrap;">
+    <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800;
+                    font-size:20px; color:var(--blue-900);">👥 Students</div>
+        <div style="font-size:13px; color:var(--gray-400); margin-top:4px;">
+            View and manage all student accounts
+        </div>
     </div>
+    <a href="{{ route('admin.students.create') }}"
+       style="padding:9px 20px; background:var(--blue-700); color:#fff;
+              border-radius:9px; font-size:13px; font-weight:700; text-decoration:none;
+              display:inline-flex; align-items:center; gap:6px; white-space:nowrap; flex-shrink:0;">
+        ➕ Add Student
+    </a>
 </div>
+
+@if(session('success'))
+    <div style="background:#dcfce7; color:#15803d; padding:12px 16px;
+                border-radius:10px; margin-bottom:20px; font-size:13.5px; font-weight:500;">
+        ✅ {{ session('success') }}
+    </div>
+@endif
 
 {{-- Filter bar --}}
 <div class="card" style="margin-bottom:20px; padding:16px 20px;">
@@ -85,9 +101,7 @@
                                     {{ strtoupper(substr($student->name, 0, 2)) }}
                                 </div>
                                 <div>
-                                    <div style="font-weight:600; color:var(--blue-900);">
-                                        {{ $student->name }}
-                                    </div>
+                                    <div style="font-weight:600; color:var(--blue-900);">{{ $student->name }}</div>
                                     <div style="font-size:11.5px; color:var(--gray-400); margin-top:1px;">
                                         {{ $student->student_id }}
                                         <span class="show-mobile">
