@@ -52,6 +52,10 @@
            class="nav-item {{ request()->routeIs('admin.broadsheet.*') ? 'active' : '' }}">
             <span class="nav-icon">📊</span> Manage Broadsheet
         </a>
+        <a href="{{ route('admin.calendar.index') }}"
+           class="nav-item {{ request()->routeIs('admin.calendar.*') ? 'active' : '' }}">
+          <span class="nav-icon">📅</span> School Calendar
+        </a>
     </div>
 
     <div class="nav-section">
