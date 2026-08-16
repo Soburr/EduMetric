@@ -56,8 +56,15 @@ class AttendanceController extends Controller
         $sessions = $this->getSessions();
 
         return view('attendance.index', compact(
-            'classes', 'selectedClass', 'selectedClassId', 'selectedDate',
-            'selectedTerm', 'selectedSession', 'students', 'records', 'sessions'
+            'classes',
+            'selectedClass',
+            'selectedClassId',
+            'selectedDate',
+            'selectedTerm',
+            'selectedSession',
+            'students',
+            'records',
+            'sessions'
         ));
     }
 
@@ -109,19 +116,31 @@ class AttendanceController extends Controller
 
     public static function getAttendanceStats(int $studentId, string $term, string $session): array
     {
-        $records = AttendanceRecord::where('student_id', $studentId)
+        $calendar = \App\Models\SchoolCalendar::where('term', $term)
+            ->where('session', $session)
+            ->first();
+
+        $daysOpened = $calendar?->days_opened ?? 0;
+
+        $present = \App\Models\AttendanceRecord::where('student_id', $studentId)
             ->where('term', $term)
             ->where('session', $session)
-            ->get();
+            ->where('status', 'present')
+            ->count();
 
-        $opened  = $records->count();
-        $present = $records->where('status', 'present')->count();
-        $absent  = $opened - $present;
+        $absent = \App\Models\AttendanceRecord::where('student_id', $studentId)
+            ->where('term', $term)
+            ->where('session', $session)
+            ->where('status', 'absent')
+            ->count();
+
+        $totalMarked = $present + $absent;
+        $opened      = max($daysOpened, $totalMarked);
 
         return [
-            'times_opened'  => $opened,
-            'times_present' => $present,
-            'times_absent'  => $absent,
+            'times_opened'  => $opened ?: '',
+            'times_present' => $present ?: '',
+            'times_absent'  => $absent  ?: '',
         ];
     }
 

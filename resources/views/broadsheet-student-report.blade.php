@@ -273,13 +273,13 @@
                     </tr>
                     <tr style="border-bottom:1px solid #ccc;">
                         <td style="padding:6px 8px; text-align:center; font-weight:700;">
-                            {{ $meta?->times_opened ?? $attendanceStats['times_opened'] ?? '' }}
+                            {{ $attendanceStats['times_opened']  ?: ($meta?->times_opened  ?? '') }}
                         </td>
                         <td style="padding:6px 8px; text-align:center; font-weight:700;">
-                            {{ $meta?->times_present ?? $attendanceStats['times_present'] ?? '' }}
+                            {{ $attendanceStats['times_present'] ?: ($meta?->times_present ?? '') }}
                         </td>
                         <td style="padding:6px 8px; text-align:center; font-weight:700;">
-                            {{ $meta?->times_absent ?? $attendanceStats['times_absent'] ?? '' }}
+                            {{ $attendanceStats['times_absent']  ?: ($meta?->times_absent  ?? '') }}
                         </td>
                     </tr>
                 </table>
