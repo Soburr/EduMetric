@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminNoticeController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminCalendarController;
 use App\Http\Controllers\BroadsheetController;
 use App\Http\Controllers\ReportCardMetaController;
 use App\Http\Controllers\AttendanceController;
@@ -151,6 +152,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/student/{id}/report-card/meta', [ReportCardMetaController::class, 'save'])->name('student_report_card.meta');
 
     Route::get('/attendance',  [AttendanceController::class, 'index'])->name('attendance.index');
+
+    Route::get('/calendar',  [AdminCalendarController::class, 'index'])->name('calendar.index');
+    Route::post('/calendar', [AdminCalendarController::class, 'store'])->name('calendar.store');
 });
 
 require __DIR__.'/auth.php';
