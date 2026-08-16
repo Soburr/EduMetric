@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AdminNoticeController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\BroadsheetController;
 use App\Http\Controllers\ReportCardMetaController;
+use App\Http\Controllers\AttendanceController;
 
 
 Route::get('/', [App\Http\Controllers\LandingController::class, 'index']);
@@ -98,6 +99,9 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('student_report_card');
     Route::post('/student/{id}/report-card/meta', [ReportCardMetaController::class, 'save'])->name('student_report_card.meta');
 
+    Route::get('/attendance',  [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
+
     Route::post('/logout', [App\Http\Controllers\Teacher\TeacherAuthController::class, 'logout'])->name('logout');
 });
 
@@ -145,6 +149,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/student/{id}/report-card', [BroadsheetController::class, 'studentReport'])->name('student_report_card');
     Route::post('/student/{id}/report-card/meta', [ReportCardMetaController::class, 'save'])->name('student_report_card.meta');
+
+    Route::get('/attendance',  [AttendanceController::class, 'index'])->name('attendance.index');
 });
 
 require __DIR__.'/auth.php';

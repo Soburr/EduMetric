@@ -46,6 +46,11 @@
             <span class="nav-icon">✏️</span> Input Scores
         </a>
 
+        <a href="{{ route('teacher.attendance.index') }}"
+           class="nav-item {{ request()->routeIs('teacher.attendance.*') ? 'active' : '' }}">
+           <span class="nav-icon">🗓️</span> Attendance
+        </a>
+
         <a href="{{ route('teacher.broadsheet.index') }}"
            class="nav-item {{ request()->routeIs('teacher.broadsheet.*') ? 'active' : '' }}">
             <span class="nav-icon">📊</span> Broadsheet

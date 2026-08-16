@@ -213,7 +213,7 @@ class BroadsheetController extends Controller
     }
 
    public function studentReport(Request $request, int $id)
-{
+   {
     $user    = Auth::user();
     $student = User::findOrFail($id);
 
@@ -246,6 +246,11 @@ class BroadsheetController extends Controller
             ->where('term', $request->term)
             ->where('session', $request->session)
             ->first();
+
+        // Auto-calculate attendance from attendance records
+        $attendanceStats = \App\Http\Controllers\AttendanceController::getAttendanceStats(
+        $student->id, $request->term, $request->session
+        );
 
         if ($scores->isNotEmpty()) {
             $grandTotal = $scores->sum('total');
