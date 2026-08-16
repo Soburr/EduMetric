@@ -1,58 +1,282 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EduMetric
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive school management platform built with **Laravel**, **Blade**, and **JavaScript**, designed to streamline academic administration, student assessment, and performance reporting.
 
-## About Laravel
+EduMetric features a scalable **Computer-Based Testing (CBT) Engine** for real-time examinations, automated grading, result analytics, report card generation, and broadsheet management, making it suitable for primary, secondary, and tertiary institutions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📚 Academic Management
 
-## Learning Laravel
+* Student registration and management
+* Class and department management
+* Subject allocation
+* Academic session and term management
+* Teacher management
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 📝 CBT Examination Engine
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* Real-time computer-based examinations
+* Multiple question types
+* Timed assessments
+* Automatic grading
+* Exam scheduling
+* Question bank management
+* Randomized questions
+* Instant result generation
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 📊 Result Analytics
 
-## Agentic Development
+* Automated score computation
+* Student performance analysis
+* Subject performance statistics
+* Class ranking and positioning
+* Grade calculation system
+* Performance trend tracking
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 📄 Report Card System
+
+* Automated report card generation
+* Continuous assessment computation
+* Termly result processing
+* Printable student report sheets
+* Cumulative performance records
+
+### 📑 Broadsheet Management
+
+* Class broadsheet generation
+* Subject-wise performance summaries
+* Student ranking reports
+* Downloadable and printable broadsheets
+
+### 🔒 Security & Access Control
+
+* Role-based authentication
+* Administrator dashboard
+* Teacher dashboard
+* Student portal
+* Secure access management
+
+### 📱 User Experience
+
+* Responsive interface
+* Modern dashboard design
+* Real-time interactions
+* Fast and intuitive navigation
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+
+* Laravel
+
+### Frontend
+
+* Blade Templates
+* JavaScript
+* HTML5
+* CSS3 & Tailwind
+
+### Database
+
+* MySQL
+
+### Authentication
+
+* Laravel Authentication
+
+---
+
+## 📋 Requirements
+
+Before installation, ensure you have:
+
+* PHP 8.1+
+* Composer
+* MySQL
+* Node.js & NPM
+
+---
+
+## ⚙️ Installation
+
+### Clone the Repository
 
 ```bash
-composer require laravel/boost --dev
+git clone https://github.com/yourusername/edumetric.git
 
-php artisan boost:install
+cd edumetric
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Install Dependencies
 
-## Contributing
+```bash
+composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+npm install
+```
 
-## Code of Conduct
+### Configure Environment
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cp .env.example .env
+```
 
-## Security Vulnerabilities
+Update the database credentials inside the `.env` file.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Generate Application Key
 
-## License
+```bash
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### Build Frontend Assets
+
+```bash
+npm run build
+```
+
+For development:
+
+```bash
+npm run dev
+```
+
+### Start the Application
+
+```bash
+php artisan serve
+```
+
+Visit:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## 🎯 Core Modules
+
+### Administration Module
+
+* User management
+* Academic session setup
+* School configuration
+* Notice Upload
+* Manage Broadsheet and Report Card
+* Add/Remove Teachers
+* Add/Remove Students
+
+### Teacher Module
+
+* Result management
+* Assessment uploads
+* Question creation
+* Student performance monitoring
+* Add Student to their class
+* Update Student's details
+
+### Student Module
+
+* CBT participation
+* Result viewing
+* Academic records access
+* Report card access
+* Notice viewing
+
+### Examination Module
+
+* CBT administration
+* Question bank
+* Exam scheduling
+* Result processing
+* Exam shuffling
+
+### Reporting Module
+
+* Report cards
+* Broadsheets
+* Academic statistics
+* Performance analytics
+
+---
+
+---
+
+## 🧪 Testing
+
+Run application tests:
+
+```bash
+php artisan test
+```
+
+---
+
+## 📈 Future Improvements
+
+* Parent Portal
+* SMS Notifications
+* Email Notifications
+* Assignment Management
+* Attendance Tracking
+* School Fees Management
+* Mobile Application
+* AI-Based Performance Insights
+* Attendance Marker
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a feature branch
+
+```bash
+git checkout -b feature/new-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push to GitHub
+
+```bash
+git push origin feature/new-feature
+```
+
+5. Create a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+Developed by **Soburr**
+
+GitHub: https://github.com/Soburr
+
+---
+
+⭐ If you find EduMetric useful, consider giving the project a star on GitHub.
