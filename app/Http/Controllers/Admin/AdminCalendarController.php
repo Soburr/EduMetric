@@ -30,10 +30,13 @@ class AdminCalendarController extends Controller
             'entries'              => ['required', 'array'],
             'entries.*.term'       => ['required', 'in:first,second,third'],
             'entries.*.session'    => ['required', 'string'],
-            'entries.*.days_opened'=> ['required', 'integer', 'min:1', 'max:365'],
+            'entries.*.days_opened' => ['nullable', 'integer', 'min:1', 'max:365'],
         ]);
 
         foreach ($request->entries as $entry) {
+
+            if (empty($entry['days_opened'])) continue;
+
             SchoolCalendar::updateOrCreate(
                 ['term' => $entry['term'], 'session' => $entry['session']],
                 ['days_opened' => $entry['days_opened']]

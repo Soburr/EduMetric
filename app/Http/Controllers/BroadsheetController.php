@@ -247,7 +247,6 @@ class BroadsheetController extends Controller
             ->where('session', $request->session)
             ->first();
 
-        // Auto-calculate attendance from attendance records
         $attendanceStats = \App\Http\Controllers\AttendanceController::getAttendanceStats(
         $student->id, $request->term, $request->session
         );
@@ -307,7 +306,7 @@ class BroadsheetController extends Controller
 
     return view('broadsheet-student-report', compact(
         'student', 'scores', 'sessions', 'selectedTerm', 'selectedSession',
-        'grandTotal', 'average', 'position', 'totalStudents', 'meta', 'subjectStats'
+        'grandTotal', 'average', 'position', 'totalStudents', 'meta', 'subjectStats', 'attendanceStats'
     ));
 }
 }
