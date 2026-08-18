@@ -186,6 +186,7 @@ http://127.0.0.1:8000
 * Student performance monitoring
 * Add Student to their class
 * Update Student's details
+* Mark Attendance 
 
 ### Student Module
 
