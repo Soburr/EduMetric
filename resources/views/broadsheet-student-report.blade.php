@@ -121,76 +121,76 @@
             Behavioural Attributes <span style="font-weight:400; color:var(--gray-400); font-size:12px;">(Rate 1–5)</span>
         </div>
         <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; width:100%;">
-                @foreach([
-                'obedience' => 'Obedience', 'honesty' => 'Honesty',
-                'self_control' => 'Self-Control', 'self_reliance' => 'Self-Reliance',
-                'use_of_initiative' => 'Use of Initiative', 'punctuality' => 'Punctuality',
-                'neatness' => 'Neatness', 'perseverance' => 'Perseverance',
-                'attendance_rating' => 'Attendance', 'attentiveness' => 'Attentiveness',
-                'courtesy' => 'Courtesy/Politeness', 'consideration' => 'Consideration for Others',
-                'sociability' => 'Sociability/Team Player', 'consistency' => 'Consistency',
-                'accept_responsibility' => 'Accept Responsibility',
-                'reading_writing' => 'Reading & Writing', 'verbal_communication' => 'Verbal Communication',
-                'sports_games' => 'Sports and Games', 'inquisitiveness' => 'Inquisitiveness',
-                'dexterity' => 'Dexterity (Art & Music)',
-                ] as $field => $label)
-                <div>
-                    <label class="field-label">{{ $label }}</label>
-                    <select name="{{ $field }}" class="field-input">
-                        <option value="">—</option>
-                        @for($i = 1; $i <= 5; $i++)
-                            <option value="{{ $i }}" {{ $meta?->$field == $i ? 'selected' : '' }}>
-                            {{ $i }}
-                            </option>
-                            @endfor
-                    </select>
-                </div>
-                @endforeach
+            @foreach([
+            'obedience' => 'Obedience', 'honesty' => 'Honesty',
+            'self_control' => 'Self-Control', 'self_reliance' => 'Self-Reliance',
+            'use_of_initiative' => 'Use of Initiative', 'punctuality' => 'Punctuality',
+            'neatness' => 'Neatness', 'perseverance' => 'Perseverance',
+            'attendance_rating' => 'Attendance', 'attentiveness' => 'Attentiveness',
+            'courtesy' => 'Courtesy/Politeness', 'consideration' => 'Consideration for Others',
+            'sociability' => 'Sociability/Team Player', 'consistency' => 'Consistency',
+            'accept_responsibility' => 'Accept Responsibility',
+            'reading_writing' => 'Reading & Writing', 'verbal_communication' => 'Verbal Communication',
+            'sports_games' => 'Sports and Games', 'inquisitiveness' => 'Inquisitiveness',
+            'dexterity' => 'Dexterity (Art & Music)',
+            ] as $field => $label)
+            <div>
+                <label class="field-label">{{ $label }}</label>
+                <select name="{{ $field }}" class="field-input">
+                    <option value="">—</option>
+                    @for($i = 1; $i <= 5; $i++)
+                        <option value="{{ $i }}" {{ $meta?->$field == $i ? 'selected' : '' }}>
+                        {{ $i }}
+                        </option>
+                        @endfor
+                </select>
             </div>
+            @endforeach
+        </div>
 
-            {{-- Comments --}}
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
-                <div>
-                    <label class="field-label">Class Teacher's Comment</label>
-                    <textarea name="class_teacher_comment" class="field-input" rows="2"
-                        placeholder="e.g. She is a well behaved student.">{{ $meta?->class_teacher_comment }}</textarea>
-                </div>
-                @if(auth()->user()->role === 'admin')
-                <div>
-                    <label class="field-label">Principal's Comment</label>
-                    <textarea name="principal_comment" class="field-input" rows="2"
-                        placeholder="e.g. A very good performance...">{{ $meta?->principal_comment }}</textarea>
-                </div>
-                @endif
+        {{-- Comments --}}
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+            <div>
+                <label class="field-label">Class Teacher's Comment</label>
+                <textarea name="class_teacher_comment" class="field-input" rows="2"
+                    placeholder="e.g. She is a well behaved student.">{{ $meta?->class_teacher_comment }}</textarea>
             </div>
-
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
-                <div>
-                    <label class="field-label">Promoted To / Repeated</label>
-                    <input type="text" name="promoted_repeated" class="field-input"
-                        placeholder="e.g. Promoted to SSS2"
-                        value="{{ $meta?->promoted_repeated }}">
-                </div>
-                <div>
-                    <label class="field-label">Next Term Begins On</label>
-                    <input type="text" name="next_term_date" class="field-input"
-                        placeholder="e.g. 4TH MAY 2026"
-                        value="{{ $meta?->next_term_date }}">
-                </div>
+            @if(auth()->user()->role === 'admin')
+            <div>
+                <label class="field-label">Principal's Comment</label>
+                <textarea name="principal_comment" class="field-input" rows="2"
+                    placeholder="e.g. A very good performance...">{{ $meta?->principal_comment }}</textarea>
             </div>
+            @endif
+        </div>
 
-            <button type="submit"
-                style="background:var(--blue-900); color:#fff; border:none; padding:10px 20px;
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+            <div>
+                <label class="field-label">Promoted To / Repeated</label>
+                <input type="text" name="promoted_repeated" class="field-input"
+                    placeholder="e.g. Promoted to SSS2"
+                    value="{{ $meta?->promoted_repeated }}">
+            </div>
+            <div>
+                <label class="field-label">Next Term Begins On</label>
+                <input type="text" name="next_term_date" class="field-input"
+                    placeholder="e.g. 4TH MAY 2026"
+                    value="{{ $meta?->next_term_date }}">
+            </div>
+        </div>
+
+        <button type="submit"
+            style="background:var(--blue-900); color:#fff; border:none; padding:10px 20px;
                        border-radius:8px; font-size:13.5px; font-family:'DM Sans',sans-serif;
                        font-weight:600; cursor:pointer;">
-                💾 Save Details
-            </button>
+            💾 Save Details
+        </button>
 
-            @if(session('success'))
-            <span style="margin-left:12px; color:var(--green); font-size:13px; font-weight:600;">
-                ✓ {{ session('success') }}
-            </span>
-            @endif
+        @if(session('success'))
+        <span style="margin-left:12px; color:var(--green); font-size:13px; font-weight:600;">
+            ✓ {{ session('success') }}
+        </span>
+        @endif
     </form>
 </div>
 
