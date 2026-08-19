@@ -79,124 +79,118 @@
         <input type="hidden" name="term" value="{{ $selectedTerm }}">
         <input type="hidden" name="session" value="{{ $selectedSession }}">
 
-        {{-- Attendance & Dates --}}
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px;">
+        {{-- Attendance -- auto calculated, shown read-only --}}
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; width:100%;">
             <div>
                 <label class="field-label">Times School Opened</label>
-                <input type="number" name="times_opened" class="field-input"
-                    value="{{ $meta?->times_opened }}">
+                <div style="padding:10px 12px; background:var(--gray-50); border-radius:8px;
+                    border:1px solid var(--gray-200); font-size:13.5px; font-weight:700;
+                    color:var(--blue-900);">
+                    {{ $attendanceStats['times_opened'] ?: '—' }}
+                </div>
+                <div style="font-size:11px; color:var(--gray-400); margin-top:4px;">
+                    Set by admin in School Calendar
+                </div>
             </div>
             <div>
                 <label class="field-label">Times Present</label>
-                <input type="number" name="times_present" class="field-input"
-                    value="{{ $meta?->times_present }}">
+                <div style="padding:10px 12px; background:rgba(16,185,129,.06); border-radius:8px;
+                    border:1px solid rgba(16,185,129,.2); font-size:13.5px; font-weight:700;
+                    color:var(--green);">
+                    {{ $attendanceStats['times_present'] ?: '—' }}
+                </div>
+                <div style="font-size:11px; color:var(--gray-400); margin-top:4px;">
+                    Auto-counted from attendance records
+                </div>
             </div>
             <div>
                 <label class="field-label">Times Absent</label>
-                <input type="number" name="times_absent" class="field-input"
-                    value="{{ $meta?->times_absent }}">
+                <div style="padding:10px 12px; background:rgba(239,68,68,.06); border-radius:8px;
+                    border:1px solid rgba(239,68,68,.2); font-size:13.5px; font-weight:700;
+                    color:var(--red);">
+                    {{ $attendanceStats['times_absent'] ?: '—' }}
+                </div>
+                <div style="font-size:11px; color:var(--gray-400); margin-top:4px;">
+                    Auto-calculated: Opened − Present
+                </div>
             </div>
-            <div>
-                <label class="field-label">Term Begins</label>
-                <input type="text" name="term_begins" class="field-input"
-                    placeholder="e.g. 4TH JANUARY 2026"
-                    value="{{ $meta?->term_begins }}">
-            </div>
-            <div>
-                <label class="field-label">Term Ends</label>
-                <input type="text" name="term_ends" class="field-input"
-                    placeholder="e.g. 17TH APRIL 2026"
-                    value="{{ $meta?->term_ends }}">
-            </div>
-            <div>
-                <label class="field-label">Next Term Begins</label>
-                <input type="text" name="next_term_begins" class="field-input"
-                    placeholder="e.g. 4TH MAY 2026"
-                    value="{{ $meta?->next_term_begins }}">
-            </div>
-            <div>
-                <label class="field-label">Terminal Duration</label>
-                <input type="text" name="terminal_duration" class="field-input"
-                    placeholder="e.g. 14 WEEKS"
-                    value="{{ $meta?->terminal_duration }}">
-            </div>
-        </div>
+        </div>{{-- end attendance grid --}}
 
         {{-- Behavioural Attributes --}}
-        <div style="font-weight:700; font-size:13px; color:var(--blue-900); margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:var(--blue-900); margin-bottom:12px; margin-top:8px;">
             Behavioural Attributes <span style="font-weight:400; color:var(--gray-400); font-size:12px;">(Rate 1–5)</span>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;">
-            @foreach([
-            'obedience' => 'Obedience', 'honesty' => 'Honesty',
-            'self_control' => 'Self-Control', 'self_reliance' => 'Self-Reliance',
-            'use_of_initiative' => 'Use of Initiative', 'punctuality' => 'Punctuality',
-            'neatness' => 'Neatness', 'perseverance' => 'Perseverance',
-            'attendance_rating' => 'Attendance', 'attentiveness' => 'Attentiveness',
-            'courtesy' => 'Courtesy/Politeness', 'consideration' => 'Consideration for Others',
-            'sociability' => 'Sociability/Team Player', 'consistency' => 'Consistency',
-            'accept_responsibility' => 'Accept Responsibility',
-            'reading_writing' => 'Reading & Writing', 'verbal_communication' => 'Verbal Communication',
-            'sports_games' => 'Sports and Games', 'inquisitiveness' => 'Inquisitiveness',
-            'dexterity' => 'Dexterity (Art & Music)',
-            ] as $field => $label)
-            <div>
-                <label class="field-label">{{ $label }}</label>
-                <select name="{{ $field }}" class="field-input">
-                    <option value="">—</option>
-                    @for($i = 1; $i <= 5; $i++)
-                        <option value="{{ $i }}" {{ $meta?->$field == $i ? 'selected' : '' }}>
-                        {{ $i }}
-                        </option>
-                        @endfor
-                </select>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; width:100%;">
+                @foreach([
+                'obedience' => 'Obedience', 'honesty' => 'Honesty',
+                'self_control' => 'Self-Control', 'self_reliance' => 'Self-Reliance',
+                'use_of_initiative' => 'Use of Initiative', 'punctuality' => 'Punctuality',
+                'neatness' => 'Neatness', 'perseverance' => 'Perseverance',
+                'attendance_rating' => 'Attendance', 'attentiveness' => 'Attentiveness',
+                'courtesy' => 'Courtesy/Politeness', 'consideration' => 'Consideration for Others',
+                'sociability' => 'Sociability/Team Player', 'consistency' => 'Consistency',
+                'accept_responsibility' => 'Accept Responsibility',
+                'reading_writing' => 'Reading & Writing', 'verbal_communication' => 'Verbal Communication',
+                'sports_games' => 'Sports and Games', 'inquisitiveness' => 'Inquisitiveness',
+                'dexterity' => 'Dexterity (Art & Music)',
+                ] as $field => $label)
+                <div>
+                    <label class="field-label">{{ $label }}</label>
+                    <select name="{{ $field }}" class="field-input">
+                        <option value="">—</option>
+                        @for($i = 1; $i <= 5; $i++)
+                            <option value="{{ $i }}" {{ $meta?->$field == $i ? 'selected' : '' }}>
+                            {{ $i }}
+                            </option>
+                            @endfor
+                    </select>
+                </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
 
-        {{-- Comments --}}
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
-            <div>
-                <label class="field-label">Class Teacher's Comment</label>
-                <textarea name="class_teacher_comment" class="field-input" rows="2"
-                    placeholder="e.g. She is a well behaved student.">{{ $meta?->class_teacher_comment }}</textarea>
+            {{-- Comments --}}
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+                <div>
+                    <label class="field-label">Class Teacher's Comment</label>
+                    <textarea name="class_teacher_comment" class="field-input" rows="2"
+                        placeholder="e.g. She is a well behaved student.">{{ $meta?->class_teacher_comment }}</textarea>
+                </div>
+                @if(auth()->user()->role === 'admin')
+                <div>
+                    <label class="field-label">Principal's Comment</label>
+                    <textarea name="principal_comment" class="field-input" rows="2"
+                        placeholder="e.g. A very good performance...">{{ $meta?->principal_comment }}</textarea>
+                </div>
+                @endif
             </div>
-            @if(auth()->user()->role === 'admin')
-            <div>
-                <label class="field-label">Principal's Comment</label>
-                <textarea name="principal_comment" class="field-input" rows="2"
-                    placeholder="e.g. A very good performance...">{{ $meta?->principal_comment }}</textarea>
-            </div>
-            @endif
-        </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
-            <div>
-                <label class="field-label">Promoted To / Repeated</label>
-                <input type="text" name="promoted_repeated" class="field-input"
-                    placeholder="e.g. Promoted to SSS2"
-                    value="{{ $meta?->promoted_repeated }}">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+                <div>
+                    <label class="field-label">Promoted To / Repeated</label>
+                    <input type="text" name="promoted_repeated" class="field-input"
+                        placeholder="e.g. Promoted to SSS2"
+                        value="{{ $meta?->promoted_repeated }}">
+                </div>
+                <div>
+                    <label class="field-label">Next Term Begins On</label>
+                    <input type="text" name="next_term_date" class="field-input"
+                        placeholder="e.g. 4TH MAY 2026"
+                        value="{{ $meta?->next_term_date }}">
+                </div>
             </div>
-            <div>
-                <label class="field-label">Next Term Begins On</label>
-                <input type="text" name="next_term_date" class="field-input"
-                    placeholder="e.g. 4TH MAY 2026"
-                    value="{{ $meta?->next_term_date }}">
-            </div>
-        </div>
 
-        <button type="submit"
-            style="background:var(--blue-900); color:#fff; border:none; padding:10px 20px;
+            <button type="submit"
+                style="background:var(--blue-900); color:#fff; border:none; padding:10px 20px;
                        border-radius:8px; font-size:13.5px; font-family:'DM Sans',sans-serif;
                        font-weight:600; cursor:pointer;">
-            💾 Save Details
-        </button>
+                💾 Save Details
+            </button>
 
-        @if(session('success'))
-        <span style="margin-left:12px; color:var(--green); font-size:13px; font-weight:600;">
-            ✓ {{ session('success') }}
-        </span>
-        @endif
+            @if(session('success'))
+            <span style="margin-left:12px; color:var(--green); font-size:13px; font-weight:600;">
+                ✓ {{ session('success') }}
+            </span>
+            @endif
     </form>
 </div>
 
@@ -273,13 +267,13 @@
                     </tr>
                     <tr style="border-bottom:1px solid #ccc;">
                         <td style="padding:6px 8px; text-align:center; font-weight:700;">
-                            {{ $attendanceStats['times_opened']  ?: ($meta?->times_opened  ?? '') }}
+                            {{ $attendanceStats['times_opened']  ?: '' }}
                         </td>
                         <td style="padding:6px 8px; text-align:center; font-weight:700;">
-                            {{ $attendanceStats['times_present'] ?: ($meta?->times_present ?? '') }}
+                            {{ $attendanceStats['times_present'] ?: '' }}
                         </td>
                         <td style="padding:6px 8px; text-align:center; font-weight:700;">
-                            {{ $attendanceStats['times_absent']  ?: ($meta?->times_absent  ?? '') }}
+                            {{ $attendanceStats['times_absent']  ?: '' }}
                         </td>
                     </tr>
                 </table>

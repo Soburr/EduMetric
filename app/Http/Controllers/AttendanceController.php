@@ -116,31 +116,26 @@ class AttendanceController extends Controller
 
     public static function getAttendanceStats(int $studentId, string $term, string $session): array
     {
-        $calendar = \App\Models\SchoolCalendar::where('term', $term)
+        // Days school opened — set by admin
+        $calendar   = \App\Models\SchoolCalendar::where('term', $term)
             ->where('session', $session)
             ->first();
-
         $daysOpened = $calendar?->days_opened ?? 0;
 
+        // Days this student was marked present
         $present = \App\Models\AttendanceRecord::where('student_id', $studentId)
             ->where('term', $term)
             ->where('session', $session)
             ->where('status', 'present')
             ->count();
 
-        $absent = \App\Models\AttendanceRecord::where('student_id', $studentId)
-            ->where('term', $term)
-            ->where('session', $session)
-            ->where('status', 'absent')
-            ->count();
-
-        $totalMarked = $present + $absent;
-        $opened      = max($daysOpened, $totalMarked);
+        // Absent = opened - present (not from records)
+        $absent = $daysOpened > 0 ? max(0, $daysOpened - $present) : 0;
 
         return [
-            'times_opened'  => $opened ?: '',
-            'times_present' => $present ?: '',
-            'times_absent'  => $absent  ?: '',
+            'times_opened'  => $daysOpened ?: '',
+            'times_present' => $present    ?: '',
+            'times_absent'  => $absent     ?: '',
         ];
     }
 
