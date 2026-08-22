@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard') – JGSGS Admin</title>
+    <title>@yield('title', 'Dashboard') – Dunamis Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     @stack('styles')
@@ -17,7 +17,7 @@
     <div class="sidebar-brand">
         <div class="brand-icon">🛡️</div>
         <div class="brand-text">
-            JGSGS
+            DUNAMIS
             <span>Admin Panel</span>
         </div>
     </div>
@@ -57,14 +57,13 @@
           <span class="nav-icon">📅</span> School Calendar
         </a>
     </div>
-
     <div class="nav-section">
         <div class="nav-label">Account</div>
         <a href="{{ route('admin.profile') }}"
            class="nav-item {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
             <span class="nav-icon">👤</span> My Profile
         </a>
-                <form method="POST" action="{{ route('admin.logout') }}">
+        <form method="POST" action="{{ route('admin.logout') }}">
             @csrf
             <button class="logout-btn" type="submit">
                 <span>🚪</span> Logout
@@ -72,14 +71,7 @@
         </form>
     </div>
 
-    <div class="sidebar-footer">
-        <!-- <form method="POST" action="{{ route('admin.logout') }}">
-            @csrf
-            <button class="logout-btn" type="submit">
-                <span>🚪</span> Logout
-            </button>
-        </form> -->
-    </div>
+    <div class="sidebar-footer"></div>
 </aside>
 
 <!-- Main -->
