@@ -6,6 +6,17 @@
     <title>@yield('title', 'Dashboard') – Dunamis Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <style>
+        #sidebar {
+            height: 100vh !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            min-height: unset !important;
+        }
+        #sidebar::-webkit-scrollbar { width: 4px; }
+        #sidebar::-webkit-scrollbar-track { background: transparent; }
+        #sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    </style>
     @stack('styles')
 </head>
 <body>
