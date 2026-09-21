@@ -342,8 +342,8 @@
                                border-right:1px solid #ccc; vertical-align:middle;" rowspan="2">
                             {{ $average }}%
                         </td>
-                        <th style="padding:4px 6px; text-align:center; border-right:1px solid #ddd; width:9%;">CA /30</th>
-                        <th style="padding:4px 6px; text-align:center; border-right:1px solid #ddd; width:9%;">EXAM /70</th>
+                        <th style="padding:4px 6px; text-align:center; border-right:1px solid #ddd; width:9%;">CA /40</th>
+                        <th style="padding:4px 6px; text-align:center; border-right:1px solid #ddd; width:9%;">EXAM /60</th>
                         <th style="padding:4px 6px; text-align:center; border-right:1px solid #ccc; width:9%;">SCORES /100</th>
                         <th style="padding:4px 6px; text-align:center; border-right:1px solid #ccc;"></th>
                         <th style="padding:4px 6px; text-align:center; border-right:1px solid #ddd; width:9%;">CLASS LOWEST</th>
@@ -352,10 +352,10 @@
                     </tr>
                     <tr style="border-bottom:1px solid #ccc; background:#f5f5f5;">
                         <td style="padding:3px 6px; text-align:center; border-right:1px solid #ddd; font-size:10px;">
-                            Max: 30%
+                            Max: 40%
                         </td>
                         <td style="padding:3px 6px; text-align:center; border-right:1px solid #ddd; font-size:10px;">
-                            Max: 70%
+                            Max: 60%
                         </td>
                         <td style="padding:3px 6px; text-align:center; border-right:1px solid #ccc; font-size:10px;">
                             Max: 100%
@@ -378,7 +378,7 @@
                             {{ $score->subject }}
                         </td>
                         <td style="padding:5px 6px; text-align:center; border-right:1px solid #ddd;">
-                            {{ $score->cbt_score ? number_format($score->cbt_score, 0) : '—' }}
+                            {{ $score->ca_score ? number_format($score->ca_score, 0) : '—' }}
                         </td>
                         <td style="padding:5px 6px; text-align:center; border-right:1px solid #ddd;">
                             {{ $score->exam_score ? number_format($score->exam_score, 0) : '—' }}
