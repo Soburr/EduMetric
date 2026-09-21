@@ -118,14 +118,15 @@ class TeacherScoreController extends Controller
         }
 
         $request->validate([
-            'class_id' => ['required', 'exists:school_classes,id'],
-            'term' => ['required', 'in:first,second,third'],
-            'session' => ['required', 'string'],
-            'subject' => ['required', 'string'],
-            'scores' => ['required', 'array'],
-            'scores.*.ca_score' => ['nullable', 'numeric', 'min:0', 'max:30'],
-            'scores.*.exam_score' => ['nullable', 'numeric', 'min:0', 'max:70'],
-            'scores.*.remark' => ['nullable', 'string', 'max:255'],
+            'class_id'              => ['required', 'exists:school_classes,id'],
+            'term'                  => ['required', 'in:first,second,third'],
+            'session'               => ['required', 'string'],
+            'subject'               => ['required', 'string'],
+            'scores'                => ['required', 'array'],
+            'scores.*.test1_score'  => ['nullable', 'numeric', 'min:0', 'max:10'],
+            'scores.*.test2_score'  => ['nullable', 'numeric', 'min:0', 'max:10'],
+            'scores.*.exam_score'   => ['nullable', 'numeric', 'min:0', 'max:60'],
+            'scores.*.remark'       => ['nullable', 'string', 'max:255'],
         ]);
 
         DB::transaction(function () use ($request) {
@@ -138,10 +139,11 @@ class TeacherScoreController extends Controller
                     'session' => $request->session,
                 ], ['cbt_score' => 0]);
 
-                $score->ca_score = isset($data['ca_score']) ? (float) $data['ca_score'] : null;
-                $score->exam_score = isset($data['exam_score']) ? (float) $data['exam_score'] : null;
-                $score->cbt_score = isset($data['cbt_score']) ? (float) $data['cbt_score'] : $score->cbt_score; // add this line
-                $score->remark = $data['remark'] ?? null;
+                $score->test1_score = isset($data['test1_score']) ? (float) $data['test1_score'] : null;
+                $score->test2_score = isset($data['test2_score']) ? (float) $data['test2_score'] : null;
+                $score->exam_score  = isset($data['exam_score'])  ? (float) $data['exam_score']  : null;
+                $score->cbt_score   = isset($data['cbt_score'])   ? (float) $data['cbt_score']   : $score->cbt_score;
+                $score->remark      = $data['remark'] ?? null;
                 $score->save();
 
                 $score->recalculate();
@@ -153,7 +155,7 @@ class TeacherScoreController extends Controller
         return back()->with(
             'success',
             "Scores saved for {$class->name} — {$request->subject} — " .
-            SubjectScore::termLabel($request->term) . "."
+                SubjectScore::termLabel($request->term) . "."
         );
     }
 

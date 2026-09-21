@@ -21,6 +21,8 @@ class SubjectScore extends Model
         'total',
         'grade',
         'remark',
+        'test1_score',
+        'test2_score'
     ];
 
     protected function casts(): array
@@ -28,6 +30,8 @@ class SubjectScore extends Model
         return [
             'cbt_score' => 'decimal:2',
             'ca_score' => 'decimal:2',
+            'test1_score' => 'decimal:2',
+            'test2_score' => 'decimal:2',
             'exam_score' => 'decimal:2',
             'total' => 'decimal:2',
         ];
@@ -47,16 +51,20 @@ class SubjectScore extends Model
     /**
      * Auto-calculate total and grade whenever ca or exam is updated.
      */
-public function recalculate(): void
-{
-    $total = ($this->cbt_score  ?? 0)
-           + ($this->exam_score ?? 0);
+    public function recalculate(): void
+    {
+        $ca = ($this->cbt_score   ?? 0)
+            + ($this->test1_score ?? 0)
+            + ($this->test2_score ?? 0);
 
-    $this->total = round($total, 2);
-    $this->grade = self::computeGrade($total);
-    $this->save();
-}
+        $this->ca_score = round($ca, 2);
 
+        $total = $ca + ($this->exam_score ?? 0);
+
+        $this->total = round($total, 2);
+        $this->grade = self::computeGrade($total);
+        $this->save();
+    }
     /**
      * Scale a raw CBT percentage to /20.
      */
@@ -72,17 +80,17 @@ public function recalculate(): void
      */
     public static function computeGrade(float $total): string
     {
-    return match(true) {
-        $total >= 75 => 'A1',
-        $total >= 70 => 'B2',
-        $total >= 65 => 'B3',
-        $total >= 60 => 'C4',
-        $total >= 55 => 'C5',
-        $total >= 50 => 'C6',
-        $total >= 45 => 'D7',
-        $total >= 40 => 'E8',
-        default      => 'F9',
-    };
+        return match (true) {
+            $total >= 75 => 'A1',
+            $total >= 70 => 'B2',
+            $total >= 65 => 'B3',
+            $total >= 60 => 'C4',
+            $total >= 55 => 'C5',
+            $total >= 50 => 'C6',
+            $total >= 45 => 'D7',
+            $total >= 40 => 'E8',
+            default      => 'F9',
+        };
     }
 
     /**
